@@ -6,6 +6,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Login from './src/pages/Login';
 import Cadastro from './src/pages/Cadastro';
 import Homepage from './src/pages/Homepage';
+import Appointment from './src/pages/Appointment';
 import ActionBarImage from './src/pages/Icon_Perfil';
 import Notification_bell from './src/pages/Icon_Notification';
 
@@ -42,6 +43,14 @@ export default function App() {
         <Stack.Screen name="Home" component={HomeScreen}/>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Cadastro" component={Cadastro} />
+        <Stack.Screen 
+          name="Appointment" 
+          component={Appointment}
+          options={{
+            title: 'Consultas',
+            headerLeft: () => <ActionBarImage/>,
+            headerBackVisible: true, // tirar na apresentação 
+          }}/>
         <Stack.Screen 
           name="Página Inicial" 
           component={Homepage}

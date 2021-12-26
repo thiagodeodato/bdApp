@@ -13,7 +13,8 @@ export default function Login({ navigation }) {
 
     
     function login (){
-        if(userEmail && userEmail != ''){
+        navigation.navigate('Appointment', userEmail);
+       /*  if(userEmail && userEmail != ''){
             dbRef.child("clientesCadastro").child(userEmail).get().then((snapshot) => {
                 if (snapshot.exists()) {
                     navigation.navigate('Página Inicial', userEmail);
@@ -26,7 +27,7 @@ export default function Login({ navigation }) {
             });
         } else{
             alert('Erro ao fazer Login. Preencha um email válido');
-        }
+        } */
     }
     
     return(
@@ -64,12 +65,12 @@ export default function Login({ navigation }) {
                     title="Fazer Login"
                 />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button}>
+            {/* <TouchableOpacity style={styles.button}>
                 <Button
                     title="Cadastre-se"
                     onPress={() => navigation.navigate('Cadastro')}
                 />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </KeyboardAvoidingView>
         </ScrollView>
     </View>
