@@ -6,7 +6,7 @@ import firebase from '../config/firebaseconfig';
 //import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 //import Checkbox from "./Checkbox";
 
-export default function Appointment( {route, navigation} ) {
+export default function CreateAppointment( {route, navigation} ) {
     
     const [personName, setPersonName] = useState('');
     const [email, setEmail] = useState('');
@@ -29,31 +29,12 @@ export default function Appointment( {route, navigation} ) {
             alert('É necessário preencher todos os campos obrigatórios (*)');
         }
     } */
-
-    const selectOneFile = async () => {
-
-        let result = await DocumentPicker.getDocumentAsync({});
-        if(result.uri === undefined){
-            alert('Não foi possível fazer o envio do documento.')
-        } else {
-            alert('O documento será analisado e caso seja aprovado será possível solicitar o cartão.')
-        }
-        console.log(result);
-    }  
     
-    
-    const dbRef = firebase.database().ref();
-    //console.log(dbRef);
-
-    //TESTE DE CONEXAO PARA O CLIENTE THIAGO
-
-    /* var radioValue = 0; */
-
     return (
         <ScrollView
             
             style = {styles.scrollView}>
-    <View style={styles.container}>
+        <View style={styles.container}>
         <Image style={styles.logo} source={require('../assets/logotravessia.png')} />
             
         
@@ -66,7 +47,7 @@ export default function Appointment( {route, navigation} ) {
             <Text style = {styles.Hello}> 
             Olá, {personName}
             </Text>
-            {/* <Text style={styles.label}>Nome Completo *</Text>
+            <Text style={styles.label}>Nome Completo *</Text>
             <TextInput
                 style={styles.input}
                 placeholder="José da Silva"
@@ -158,7 +139,6 @@ export default function Appointment( {route, navigation} ) {
                     setCondition(value)
                 }
             />
- */}
             
             
             
@@ -188,15 +168,6 @@ export default function Appointment( {route, navigation} ) {
                 keyboardType="numeric"
             />)} */}
 
-          {/*   <Text style={styles.label}>Documento comprovante *</Text>
-            <TouchableOpacity style={styles.buttonFile}>
-                <Button style={styles.buttonFile}
-                    title="Selecione o Documento"
-                    activeOpacity={0.5}
-                    onPress={selectOneFile}
-                />
-            </TouchableOpacity>
-
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}
                 onPress={() =>
@@ -205,16 +176,11 @@ export default function Appointment( {route, navigation} ) {
                     }
                 }
                 >Criar Consulta</Text>
-            </TouchableOpacity> */}
-
-
-
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}
-                    onPress={() => navigation.navigate('Criar Consulta')}
-                >Criar Consulta</Text>
             </TouchableOpacity>
+
+            
         </KeyboardAvoidingView>
+
             
     </View>
     </ScrollView>
