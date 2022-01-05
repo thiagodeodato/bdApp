@@ -3,6 +3,7 @@ import {Text, KeyboardAvoidingView, TextInput, TouchableOpacity, View, StyleShee
 import * as DocumentPicker from 'expo-document-picker';
 import RadioButton from '../components/RadioButton';
 import firebase from '../config/firebaseconfig';
+import * as SQLite from 'expo-sqlite';
 //import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 //import Checkbox from "./Checkbox";
 
@@ -42,7 +43,7 @@ export default function Appointment( {route, navigation} ) {
     }  
     
     
-    const dbRef = firebase.database().ref();
+    //const dbRef = firebase.database().ref();
     //console.log(dbRef);
 
     //TESTE DE CONEXAO PARA O CLIENTE THIAGO

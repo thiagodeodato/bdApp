@@ -3,6 +3,7 @@ import React from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import * as SQLite from 'expo-sqlite';
 import Login from './src/pages/Login';
 import Cadastro from './src/pages/Cadastro';
 import Homepage from './src/pages/Homepage';
@@ -27,6 +28,38 @@ function HomeScreen({ navigation }) {
 const Stack = createNativeStackNavigator();
 
 export default function App() {
+
+    var db = SQLite.openDatabase(
+        'teste'
+    );
+// criando as tabelas utilizadas pelo nosso sistema
+
+    db.transaction(tx =>{
+
+        tx.executeSql( 
+        'create table if not exists testando2 (id integer primary key not null, name text, numero integer);',
+        [],
+        (txn, rs) => console.log('successfull create if not exists  table'),
+        (error) => console.log('error create if not exists  table')
+        );
+
+       /*  tx.executeSql( 
+            'drop table consulta;',
+            [],
+            (txn, rs) => console.log('successfull drop table'),
+            (error) => console.log('error drop table')
+            ) */
+
+        tx.executeSql( 
+            'create table if not exists consulta (id integer primary key not null, patientCpf integer, medicCrm integer, appointmentDay text, appointmentHour text);',
+            [],
+            (txn, rs) => console.log('successfull create if not exists table'),
+            (error) => console.log('error create if not exists  table')
+            )
+    });
+
+    //this.fetchData();
+
   return (
     <NavigationContainer>
     <Stack.Navigator 

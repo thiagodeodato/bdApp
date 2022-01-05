@@ -3,21 +3,84 @@ import {Text, KeyboardAvoidingView, TextInput, TouchableOpacity, View, StyleShee
 import * as DocumentPicker from 'expo-document-picker';
 import RadioButton from '../components/RadioButton';
 import firebase from '../config/firebaseconfig';
+import * as SQLite from 'expo-sqlite';
 //import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
 //import Checkbox from "./Checkbox";
 
 export default function CreateAppointment( {route, navigation} ) {
     
     const [personName, setPersonName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [condition, setCondition] = useState('');
+    const [patientName, setPatientName] = useState('');
+    const [patientCpf, setPatientCpf] = useState('');
+    const [medicName, setMedicName] = useState('');
+    const [medicCrm, setMedicCrm] = useState('');
+    const [appointmentDay, setAppointmentDay] = useState();
+    const [appointmentHour, setAppointmentHour] = useState('');
+    const [arrayOficial, setArrayOficial] = useState([]);
+    const [arrayTeste, setArrayTeste] = useState([]);
+
+
+    var db = SQLite.openDatabase(
+        'teste'
+    );
+        
+    const clickShowSelect = (setArrayOficial) => {
+        db.transaction(tx =>{
+        
+            tx.executeSql('SELECT * FROM consulta', null, // passing sql query and parameters:null
+            // success callback which sends two things Transaction object and ResultSet Object
+            (txObj, resultSet) => {
+                //console.log('result set 0', resultSet.rows[0]);
+                console.log('array result antes', resultSet.rows);
+                setArrayOficial(resultSet.rows);
+            },
+            // failure callback which sends two things Transaction object and Error
+            (txObj, error) => console.log('Error ', error)
+            ) // end executeSQL
+        })
+    }
+
+    const clickSaveHandler = () => {
+        db.transaction(tx => {
+            tx.executeSql('INSERT INTO consulta (patientCpf, medicCrm, appointmentDay, appointmentHour) values (?, ?, ?, ?)', [patientCpf, medicCrm, appointmentDay, appointmentHour],
+              (txObj, resultSet) => {
+                  console.log(resultSet, 'result set do insert');
+                  alert('criado com sucesso');
+              },
+              (txObj, error) => {
+                console.log('Error click save handler', error);
+                alert('erro na criação');
+            })
+          })
+    }
+
+    const clickShowSelectTest = (setArrayTeste) => {
+        db.transaction(tx =>{
+        
+            tx.executeSql('SELECT * FROM testando2', null, // passing sql query and parameters:null
+            // success callback which sends two things Transaction object and ResultSet Object
+            (txObj, resultSet) => {
+                //console.log('result set 0', resultSet.rows[0]);
+                console.log('array result antes', resultSet.rows);
+                setArrayTeste(resultSet.rows);
+            },
+            // failure callback which sends two things Transaction object and Error
+            (txObj, error) => console.log('Error ', error)
+            ) // end executeSQL
+        })
+    }
+
+    const clickSaveHandlerTest = () => {
+        db.transaction(tx => {
+            tx.executeSql('INSERT INTO testando2 (name, numero) values (?, ?)', [patientName, 0],
+              (txObj, resultSet) => console.log(resultSet, 'result set do insert'),
+              (txObj, error) => console.log('Error click save handler', error))
+          })
+    }
 
 
     setTimeout(function(){
         setPersonName(route.params);
-        
-        console.log(personName);
     }, 150);
 
    /*  const clickSaveHandler = () => {
@@ -37,7 +100,7 @@ export default function CreateAppointment( {route, navigation} ) {
         <View style={styles.container}>
         <Image style={styles.logo} source={require('../assets/logotravessia.png')} />
             
-        
+
         
         <KeyboardAvoidingView 
            
@@ -47,55 +110,61 @@ export default function CreateAppointment( {route, navigation} ) {
             <Text style = {styles.Hello}> 
             Olá, {personName}
             </Text>
-            <Text style={styles.label}>Nome Completo *</Text>
+            <Text style={styles.label}>NOME PACIENTE *</Text>
             <TextInput
                 style={styles.input}
                 placeholder="José da Silva"
                 placeholderTextColor="#999"
                 keyboardType="default"
+                onChangeText={(patientName) => setPatientName(patientName)}
             />
-            
+
             <Text style={styles.label}> CPF *</Text>
             <TextInput
                 style={styles.input}
                 placeholder="32673387493"
                 placeholderTextColor="#999"
                 keyboardType="numeric"
+                onChangeText={(patientCpf) => setPatientCpf(patientCpf)}
             />
 
-            <Text style={styles.label}> Data de Nascimento *</Text>
+            <Text style={styles.label}> MEDICO *</Text>
             <TextInput
                 style={styles.input}
-                placeholder="05081999"
-                placeholderTextColor="#999"
-                keyboardType="numeric"
-            />
-
-            <Text style={styles.label}> CEP *</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="02201000"
-                placeholderTextColor="#999"
-                keyboardType="numeric"
-            />
-
-            <Text style={styles.label}>Endereço *</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Avenida Paulista, 1003"
+                placeholder="Fernando Costa"
                 placeholderTextColor="#999"
                 keyboardType="default"
+                onChangeText={(medicName) => setMedicName(medicName)}
             />
 
-            <Text style={styles.label}>Estado *</Text>
+            <Text style={styles.label}> CRM *</Text>
             <TextInput
                 style={styles.input}
-                placeholder="SP"
+                placeholder="452309"
                 placeholderTextColor="#999"
                 keyboardType="default"
+                onChangeText={(medicCrm) => setMedicCrm(medicCrm)}
             />
 
-            <Text style={styles.label}>Cidade *</Text>
+            <Text style={styles.label}>DIA *</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="12/05/2022"
+                placeholderTextColor="#999"
+                keyboardType="default"
+                onChangeText={(appointmentDay) => setAppointmentDay(appointmentDay)}
+            />
+
+            <Text style={styles.label}>HORA INÍCIO *</Text>
+            <TextInput
+                style={styles.input}
+                placeholder="11:20"
+                placeholderTextColor="#999"
+                keyboardType="default"
+                onChangeText={(appointmentHour) => setAppointmentHour(appointmentHour)}
+            />
+
+            {/* <Text style={styles.label}>Cidade *</Text>
             <TextInput
                 style={styles.input}
                 placeholder="São Paulo"
@@ -138,7 +207,7 @@ export default function CreateAppointment( {route, navigation} ) {
                     //setPerson({password: value})
                     setCondition(value)
                 }
-            />
+            /> */}
             
             
             
@@ -168,6 +237,7 @@ export default function CreateAppointment( {route, navigation} ) {
                 keyboardType="numeric"
             />)} */}
 
+
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}
                 onPress={() =>
@@ -176,6 +246,56 @@ export default function CreateAppointment( {route, navigation} ) {
                     }
                 }
                 >Criar Consulta</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}
+                onPress={() =>
+                    {
+                        clickShowSelect(setArrayOficial);
+                    }
+                }
+                >Resultado Consulta e Salva resultado</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}
+                onPress={() =>
+                    {
+                        console.log(arrayOficial);
+                    }
+                }
+                >Resultado consulta salvo anteriormente</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}
+                onPress={() =>
+                    {
+                        clickSaveHandlerTest();
+                    }
+                }
+                >Criar Consulta TESTE</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}
+                onPress={() =>
+                    {
+                        clickShowSelectTest(setArrayTeste);
+                    }
+                }
+                >Resultado Consulta e Salva resultado TESTE</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}
+                onPress={() =>
+                    {
+                        console.log(arrayTeste);
+                    }
+                }
+                >Resultado consulta salvo anteriormente TESTE</Text>
             </TouchableOpacity>
 
             
