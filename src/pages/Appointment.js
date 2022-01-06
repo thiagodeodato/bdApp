@@ -55,7 +55,7 @@ export default function Appointment( {route, navigation} ) {
             
             style = {styles.scrollView}>
     <View style={styles.container}>
-        <Image style={styles.logo} source={require('../assets/logotravessia.png')} />
+        <Image style={styles.logo} source={require('../assets/cremed.jpg')} />
             
         
         
@@ -67,153 +67,23 @@ export default function Appointment( {route, navigation} ) {
             <Text style = {styles.Hello}> 
             Olá, {personName}
             </Text>
-            {/* <Text style={styles.label}>Nome Completo *</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="José da Silva"
-                placeholderTextColor="#999"
-                keyboardType="default"
-            />
-            
-            <Text style={styles.label}> CPF *</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="32673387493"
-                placeholderTextColor="#999"
-                keyboardType="numeric"
-            />
-
-            <Text style={styles.label}> Data de Nascimento *</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="05081999"
-                placeholderTextColor="#999"
-                keyboardType="numeric"
-            />
-
-            <Text style={styles.label}> CEP *</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="02201000"
-                placeholderTextColor="#999"
-                keyboardType="numeric"
-            />
-
-            <Text style={styles.label}>Endereço *</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Avenida Paulista, 1003"
-                placeholderTextColor="#999"
-                keyboardType="default"
-            />
-
-            <Text style={styles.label}>Estado *</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="SP"
-                placeholderTextColor="#999"
-                keyboardType="default"
-            />
-
-            <Text style={styles.label}>Cidade *</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="São Paulo"
-                placeholderTextColor="#999"
-                keyboardType="default"
-            />
-
-            <Text style={styles.label}>E-mail *</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Seu e-mail"
-                placeholderTextColor="#999"
-                keyboardType="email-address"
-                onChangeText={(value) =>                     
-                    //setPerson({email: value.substr(0, value.indexOf('@')),})
-                    setEmail(value.substr(0, value.indexOf('@')),)
-                }
-            />
-
-            <Text style={styles.label}>Senha *</Text>
-            <TextInput
-                style={styles.input}
-                secureTextEntry={true}
-                placeholder="Senha"
-                placeholderTextColor="#999"
-                keyboardType="default"
-                onChangeText={(value) =>                     
-                    //setPerson({password: value})
-                    setPassword(value)
-                }
-            />
-
-            <Text style={styles.label}> Condição de Mobilidade Reduzida *</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Paralisia na perna direita"
-                placeholderTextColor="#999"
-                keyboardType="default"
-                onChangeText={(value) =>                     
-                    //setPerson({password: value})
-                    setCondition(value)
-                }
-            />
- */}
-            
-            
-            
-{/* 
-            <RadioButton
-                onPress={(value) => { 
-                    { 
-                        teste = value;
-                        console.log
-                    }
-                    this.setState({value:value})
-                    {this.radioValue = value} 
-                }}
-            /> */}
-
-            
-
-       {/*      <RadioButton
-                onPress={(value) => {this.setState({value:value})}}
-            /> */}
-
-           {/*  { this.radioValue  === 0 && (<Text style={styles.label}> Sugestão de tempo de utilização do cartão </Text>)(
-            <TextInput
-                style={styles.input}
-                placeholder="3 meses"
-                placeholderTextColor="#999"
-                keyboardType="numeric"
-            />)} */}
-
-          {/*   <Text style={styles.label}>Documento comprovante *</Text>
-            <TouchableOpacity style={styles.buttonFile}>
-                <Button style={styles.buttonFile}
-                    title="Selecione o Documento"
-                    activeOpacity={0.5}
-                    onPress={selectOneFile}
-                />
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}
-                onPress={() =>
-                    {
-                        clickSaveHandler();
-                    }
-                }
-                >Criar Consulta</Text>
-            </TouchableOpacity> */}
-
-
 
             <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}
                     onPress={() => navigation.navigate('Criar Consulta')}
                 >Criar Consulta</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}
+                    onPress={() => navigation.navigate('Criar Paciente')}
+                >Adicionar Paciente</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}
+                    onPress={() => navigation.navigate('Criar Medico')}
+                >Adicionar Medico</Text>
             </TouchableOpacity>
         </KeyboardAvoidingView>
             

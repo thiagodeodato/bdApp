@@ -35,7 +35,7 @@ export default function Login({ navigation }) {
         <ScrollView
         style = {styles.scrollView}>
 
-        <Image style={styles.logo} source={require('../assets/logotravessia.png')} />
+        <Image style={styles.logo} source={require('../assets/cremed.jpg')} />
         
 
         <KeyboardAvoidingView style={styles.form}>

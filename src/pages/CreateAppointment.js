@@ -4,8 +4,6 @@ import * as DocumentPicker from 'expo-document-picker';
 import RadioButton from '../components/RadioButton';
 import firebase from '../config/firebaseconfig';
 import * as SQLite from 'expo-sqlite';
-//import RadioForm, {RadioButton, RadioButtonInput, RadioButtonLabel} from 'react-native-simple-radio-button';
-//import Checkbox from "./Checkbox";
 
 export default function CreateAppointment( {route, navigation} ) {
     
@@ -79,10 +77,6 @@ export default function CreateAppointment( {route, navigation} ) {
     }
 
 
-    setTimeout(function(){
-        setPersonName(route.params);
-    }, 150);
-
    /*  const clickSaveHandler = () => {
         if(email !== '' && password !== ''){
 
@@ -98,7 +92,7 @@ export default function CreateAppointment( {route, navigation} ) {
             
             style = {styles.scrollView}>
         <View style={styles.container}>
-        <Image style={styles.logo} source={require('../assets/logotravessia.png')} />
+        <Image style={styles.logo} source={require('../assets/cremed.jpg')} />
             
 
         
@@ -107,9 +101,6 @@ export default function CreateAppointment( {route, navigation} ) {
             behavior={Platform.OS === "ios" ? "padding" : "height"} 
             style={styles.form}>
             
-            <Text style = {styles.Hello}> 
-            Olá, {personName}
-            </Text>
             <Text style={styles.label}>NOME PACIENTE *</Text>
             <TextInput
                 style={styles.input}

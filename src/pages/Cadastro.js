@@ -66,7 +66,7 @@ export default function Cadastro( {navigation} ) {
             
             style = {styles.scrollView}>
     <View style={styles.container}>
-        <Image style={styles.logo} source={require('../assets/logotravessia.png')} />
+        <Image style={styles.logo} source={require('../assets/cremed.jpg')} />
             
         
         <KeyboardAvoidingView 

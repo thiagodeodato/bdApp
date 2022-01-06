@@ -9,6 +9,8 @@ import Cadastro from './src/pages/Cadastro';
 import Homepage from './src/pages/Homepage';
 import Appointment from './src/pages/Appointment';
 import CreateAppointment from './src/pages/CreateAppointment';
+import CreatePatient from './src/pages/CreatePatient';
+import CreateMedic from './src/pages/CreateMedic';
 import ActionBarImage from './src/pages/Icon_Perfil';
 import Notification_bell from './src/pages/Icon_Notification';
 
@@ -39,8 +41,8 @@ export default function App() {
         tx.executeSql( 
         'create table if not exists testando2 (id integer primary key not null, name text, numero integer);',
         [],
-        (txn, rs) => console.log('successfull create if not exists  table'),
-        (error) => console.log('error create if not exists  table')
+        (txn, rs) => console.log('successfull create if not exists  table testando2'),
+        (error) => console.log('error create if not exists  table testando2')
         );
 
        /*  tx.executeSql( 
@@ -53,9 +55,38 @@ export default function App() {
         tx.executeSql( 
             'create table if not exists consulta (id integer primary key not null, patientCpf integer, medicCrm integer, appointmentDay text, appointmentHour text);',
             [],
-            (txn, rs) => console.log('successfull create if not exists table'),
-            (error) => console.log('error create if not exists  table')
-            )
+            (txn, rs) => console.log('successfull create if not exists table consulta'),
+            (error) => console.log('error create if not exists  table consulta')
+        );
+
+        /*  tx.executeSql( 
+            'drop table paciente;',
+            [],
+            (txn, rs) => console.log('successfull drop table paciente'),
+            (error) => console.log('error drop table')
+            ) */
+
+        tx.executeSql( 
+            'create table if not exists paciente (id integer primary key not null, patientName text, patientCpf integer, patientBirthDay text, patientGender text, patientStreet text);',
+            [],
+            (txn, rs) => console.log('successfull create if not exists table paciente'),
+            (error) => console.log('error create if not exists  table paciente')
+        )
+        
+        /*  tx.executeSql( 
+            'drop table medico;',
+            [],
+            (txn, rs) => console.log('successfull drop table medico'),
+            (error) => console.log('error drop table')
+            ) */
+
+        tx.executeSql( 
+            'create table if not exists medico (id integer primary key not null, medicName text, medicCrm integer, medicBirthDay text, medicExpertise text);',
+            [],
+            (txn, rs) => console.log('successfull create if not exists table medico'),
+            (error) => console.log('error create if not exists  table medico')
+        )
+
     });
 
     //this.fetchData();
@@ -78,6 +109,8 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Cadastro" component={Cadastro} />
         <Stack.Screen name="Criar Consulta" component={CreateAppointment} />
+        <Stack.Screen name="Criar Paciente" component={CreatePatient} />
+        <Stack.Screen name="Criar Medico" component={CreateMedic} />
         <Stack.Screen 
           name="Appointment" 
           component={Appointment}
