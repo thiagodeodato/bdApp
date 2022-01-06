@@ -104,7 +104,7 @@ export default function CreatePatient( {route, navigation} ) {
             <Text style={styles.label}>Sexo *</Text>
             <TextInput
                 style={styles.input}
-                placeholder="452309"
+                placeholder="Feminino"
                 placeholderTextColor="#999"
                 keyboardType="default"
                 onChangeText={(patientGender) => setPatientGender(patientGender)}

@@ -87,27 +87,21 @@ export default function Appointment( {route, navigation} ) {
     const clickShowAppointment = (setAppointmentArray) => {
         db.transaction(tx =>{
         if(personName && personName != ''){
-            tx.executeSql('SELECT * FROM consulta', null, // passing sql query and parameters:null
-            // success callback which sends two things Transaction object and ResultSet Object
+            tx.executeSql('SELECT * FROM consulta', null, 
             (txObj, resultSet) => {
-                //console.log('result set 0', resultSet.rows[0]);
                 console.log('array result antes', resultSet.rows);
                 setAppointmentArray(resultSet.rows);
             },
-            // failure callback which sends two things Transaction object and Error
             (txObj, error) => console.log('Error ', error)
-            ) // end executeSQL
+            )
         } else{
-            tx.executeSql('SELECT * FROM consulta', null, // passing sql query and parameters:null
-            // success callback which sends two things Transaction object and ResultSet Object
+            tx.executeSql('SELECT * FROM consulta', null,
             (txObj, resultSet) => {
-                //console.log('result set 0', resultSet.rows[0]);
                 console.log('array result antes', resultSet.rows);
                 setAppointmentArray(resultSet.rows);
             },
-            // failure callback which sends two things Transaction object and Error
             (txObj, error) => console.log('Error ', error)
-            ) // end executeSQL
+            )
         }
             
         })
@@ -117,7 +111,6 @@ export default function Appointment( {route, navigation} ) {
         db.transaction(tx =>{
             tx.executeSql('SELECT medicName FROM medico where medicCrm =' + data.medicCrm, null,
             (txObj, resultSet) => {
-                //console.log('result set 0', resultSet.rows[0]);
                 if (resultSet.rows[0]){
                     data.medicName = resultSet.rows[0].medicName;
                     console.log('DATA CHANGING', resultSet.rows[0].medicName);
@@ -128,7 +121,6 @@ export default function Appointment( {route, navigation} ) {
 
             tx.executeSql('SELECT patientName FROM paciente where patientCpf =' + data.patientCpf, null,
             (txObj, resultSet) => {
-                //console.log('result set 0', resultSet.rows[0]);
                 if (resultSet.rows[0]){
                     data.patientName = resultSet.rows[0].patientName;
                     console.log('DATA CHANGING', resultSet.rows[0].patientName);
