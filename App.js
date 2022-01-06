@@ -9,6 +9,7 @@ import Cadastro from './src/pages/Cadastro';
 import Homepage from './src/pages/Homepage';
 import Appointment from './src/pages/Appointment';
 import CreateAppointment from './src/pages/CreateAppointment';
+import UpdateAppointment from './src/pages/UpdateAppointment';
 import CreatePatient from './src/pages/CreatePatient';
 import CreateMedic from './src/pages/CreateMedic';
 import ActionBarImage from './src/pages/Icon_Perfil';
@@ -109,6 +110,7 @@ export default function App() {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Cadastro" component={Cadastro} />
         <Stack.Screen name="Criar Consulta" component={CreateAppointment} />
+        <Stack.Screen name="Editar Consulta" component={UpdateAppointment} />
         <Stack.Screen name="Criar Paciente" component={CreatePatient} />
         <Stack.Screen name="Criar Medico" component={CreateMedic} />
         <Stack.Screen 

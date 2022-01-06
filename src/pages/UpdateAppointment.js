@@ -5,20 +5,28 @@ import RadioButton from '../components/RadioButton';
 import firebase from '../config/firebaseconfig';
 import * as SQLite from 'expo-sqlite';
 
-export default function CreateAppointment( {route, navigation} ) {
+export default function UpdateAppointment( {route, navigation} ) {
     
+    const [patient, setPatient] = useState();
     const [patientName, setPatientName] = useState('');
     const [patientCpf, setPatientCpf] = useState('');
+    const [oldPatientCpf, setOldPatientCpf] = useState('');
     const [medicName, setMedicName] = useState('');
     const [medicCrm, setMedicCrm] = useState('');
+    const [oldMedicCrm, setOldMedicCrm] = useState('');
     const [appointmentDay, setAppointmentDay] = useState();
     const [appointmentHour, setAppointmentHour] = useState('');
+    const [oldAppointmentDay, setOldAppointmentDay] = useState();
+    const [oldAppointmentHour, setOldAppointmentHour] = useState('');
     const [arrayOficial, setArrayOficial] = useState([]);
+    const [arrayTeste, setArrayTeste] = useState([]);
 
 
     var db = SQLite.openDatabase(
         'teste'
     );
+
+
         
     const clickShowSelect = (setArrayOficial) => {
         db.transaction(tx =>{
@@ -36,24 +44,53 @@ export default function CreateAppointment( {route, navigation} ) {
         })
     }
 
-    const clickSaveHandler = () => {
+    const clickUpdateHandler = () => {
         db.transaction(tx => {
-            tx.executeSql('INSERT INTO consulta (patientCpf, medicCrm, appointmentDay, appointmentHour) values (?, ?, ?, ?)', [patientCpf, medicCrm, appointmentDay, appointmentHour],
+            tx.executeSql('UPDATE consulta SET appointmentDay = ?, appointmentHour = ? where appointmentDay = ? and appointmentHour = ? and medicCrm = ? and patientCpf = ?', [appointmentDay, appointmentHour, oldAppointmentDay, oldAppointmentHour, oldMedicCrm, oldPatientCpf],
               (txObj, resultSet) => {
-                  console.log(resultSet, 'result set do insert');
-                  alert('criado com sucesso');
+                  console.log(resultSet, 'result set do update');
+                  alert('atualizado com sucesso');
               },
               (txObj, error) => {
-                console.log('Error click save handler', error);
-                alert('erro na criação');
+                console.log('Error click update', error);
+                alert('erro no update');
             })
-          })
+        })
     }
+
+    const deleteAppointment = () => {
+        db.transaction(tx => {
+            tx.executeSql('DELETE FROM consulta WHERE appointmentDay = ? and appointmentHour = ? and medicCrm = ? and patientCpf = ?', [oldAppointmentDay, oldAppointmentHour, oldMedicCrm, oldPatientCpf],
+              (txObj, resultSet) => {
+                  console.log(resultSet, 'result set do delete');
+                  alert('apagado com sucesso');
+              },
+              (txObj, error) => {
+                console.log('Error click delete', error);
+                alert('erro no delete');
+            })
+        })
+    }
+
+
+    setTimeout(function(){
+        setPatient(route.params);
+        setOldAppointmentDay(route.params.appointmentDay);
+        setOldAppointmentHour(route.params.appointmentHour);
+        setOldMedicCrm(route.params.medicCrm);
+        setOldPatientCpf(route.params.patientCpf);
+        //console.log(patient, 'patient');
+        //console.log(patient.appointmentDay)
+    }, 150);
     
     return (
-        <ScrollView style = {styles.scrollView}>
+        <ScrollView
+            
+            style = {styles.scrollView}>
         <View style={styles.container}>
         <Image style={styles.logo} source={require('../assets/cremed.jpg')} />
+            
+
         
         <KeyboardAvoidingView 
            
@@ -66,7 +103,9 @@ export default function CreateAppointment( {route, navigation} ) {
                 placeholder="José da Silva"
                 placeholderTextColor="#999"
                 keyboardType="default"
+                defaultValue={route.params.patientName}
                 onChangeText={(patientName) => setPatientName(patientName)}
+                editable={false}
             />
 
             <Text style={styles.label}> CPF *</Text>
@@ -75,7 +114,9 @@ export default function CreateAppointment( {route, navigation} ) {
                 placeholder="32673387493"
                 placeholderTextColor="#999"
                 keyboardType="numeric"
+                defaultValue={route.params.patientCpf}
                 onChangeText={(patientCpf) => setPatientCpf(patientCpf)}
+                editable={false}
             />
 
             <Text style={styles.label}> MEDICO *</Text>
@@ -84,7 +125,9 @@ export default function CreateAppointment( {route, navigation} ) {
                 placeholder="Fernando Costa"
                 placeholderTextColor="#999"
                 keyboardType="default"
+                defaultValue={route.params.medicName}
                 onChangeText={(medicName) => setMedicName(medicName)}
+                editable={false}
             />
 
             <Text style={styles.label}> CRM *</Text>
@@ -93,7 +136,9 @@ export default function CreateAppointment( {route, navigation} ) {
                 placeholder="452309"
                 placeholderTextColor="#999"
                 keyboardType="default"
+                defaultValue={route.params.medicCrm}
                 onChangeText={(medicCrm) => setMedicCrm(medicCrm)}
+                editable={false}
             />
 
             <Text style={styles.label}>DIA *</Text>
@@ -102,7 +147,9 @@ export default function CreateAppointment( {route, navigation} ) {
                 placeholder="12/05/2022"
                 placeholderTextColor="#999"
                 keyboardType="default"
+                defaultValue={route.params.appointmentDay}
                 onChangeText={(appointmentDay) => setAppointmentDay(appointmentDay)}
+                editable={true}
             />
 
             <Text style={styles.label}>HORA INÍCIO *</Text>
@@ -111,6 +158,7 @@ export default function CreateAppointment( {route, navigation} ) {
                 placeholder="11:20"
                 placeholderTextColor="#999"
                 keyboardType="default"
+                defaultValue={route.params.appointmentHour}
                 onChangeText={(appointmentHour) => setAppointmentHour(appointmentHour)}
             />
 
@@ -118,10 +166,20 @@ export default function CreateAppointment( {route, navigation} ) {
                 <Text style={styles.buttonText}
                 onPress={() =>
                     {
-                        clickSaveHandler();
+                        clickUpdateHandler();
                     }
                 }
-                >Criar Consulta</Text>
+                >Salvar edição da consulta</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.button}>
+                <Text style={styles.buttonText}
+                onPress={() =>
+                    {
+                        deleteAppointment();
+                    }
+                }
+                >Deletar a consulta</Text>
             </TouchableOpacity>
 
             {/* <TouchableOpacity style={styles.button}>
@@ -132,18 +190,9 @@ export default function CreateAppointment( {route, navigation} ) {
                     }
                 }
                 >Resultado Consulta e Salva resultado</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.button}>
-                <Text style={styles.buttonText}
-                onPress={() =>
-                    {
-                        console.log(arrayOficial);
-                    }
-                }
-                >Resultado consulta salvo anteriormente</Text>
             </TouchableOpacity> */}
-            
+
+ 
         </KeyboardAvoidingView>
 
             

@@ -126,10 +126,10 @@ export default function CreatePatient( {route, navigation} ) {
                         clickSaveHandler();
                     }
                 }
-                >Criar Consulta</Text>
+                >Adicionar Paciente</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button}>
+           {/*  <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}
                 onPress={() =>
                     {
@@ -148,7 +148,7 @@ export default function CreatePatient( {route, navigation} ) {
                 }
                 >Resultado consulta salvo anteriormente</Text>
             </TouchableOpacity>
-
+ */}
             
         </KeyboardAvoidingView>
 

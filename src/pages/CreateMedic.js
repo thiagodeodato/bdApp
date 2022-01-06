@@ -91,7 +91,7 @@ export default function CreateMedic( {route, navigation} ) {
             <Text style={styles.label}>Especialidade *</Text>
             <TextInput
                 style={styles.input}
-                placeholder="452309"
+                placeholder="Pediatra"
                 placeholderTextColor="#999"
                 keyboardType="default"
                 onChangeText={(medicExpertise) => setMedicExpertise(medicExpertise)}
@@ -104,10 +104,10 @@ export default function CreateMedic( {route, navigation} ) {
                         clickSaveHandler();
                     }
                 }
-                >Criar Consulta</Text>
+                >Adicionar Medico</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button}>
+            {/* <TouchableOpacity style={styles.button}>
                 <Text style={styles.buttonText}
                 onPress={() =>
                     {
@@ -125,7 +125,7 @@ export default function CreateMedic( {route, navigation} ) {
                     }
                 }
                 >Resultado consulta salvo anteriormente</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
 
             
         </KeyboardAvoidingView>
